@@ -1,0 +1,14 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src", "dev"]
+
+ :dependencies
+ [[org.clojure/clojure "1.9.0"]
+  [camel-snake-kebab "0.4.0"]
+  [binaryage/devtools "0.9.4"]
+  [cider/cider-nrepl "0.16.0"]
+  [com.cognitect/transit-cljs "0.8.256"]
+  [metosin/reitit-core "0.1.0-SNAPSHOT"]
+  [org.clojure/test.check "0.10.0-alpha3"]
+  [reagent "0.8.0-alpha2" :exclusions [cljsjs/react cljsjs/react-dom]]
+  [re-frame "0.10.5"]]}

@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "shadow-cljs": "^2.4.26"
+  },
+  "dependencies": {
+    "@cljs-oss/module-deps": "^1.1.1",
+    "create-emotion": "^9.2.6",
+    "create-emotion-server": "^9.2.6"
+  }
+}
