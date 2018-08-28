@@ -1,4 +1,4 @@
-(defproject verktyg "0.1.1-SNAPSHOT"
+(defproject verktyg "0.1.2-SNAPSHOT"
   :description "A utility library"
   :url "https://github.com/bwalex/verktyg"
   :license {:name "Eclipse Public License"

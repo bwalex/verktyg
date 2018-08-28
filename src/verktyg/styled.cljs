@@ -231,13 +231,17 @@
 (defn css [& parts]
   (make-emotion-fn (.-css *emotion*) parts))
 
+(defn cx-merge [class-name]
+  {:pre [(string? class-name)]}
+  ((.-merge *emotion*) class-name))
+
 (defn inject-global [& parts]
   (make-emotion-fn (.-injectGlobal *emotion*) parts))
 
 (defn styled [c & style-parts]
-  (let [class-fn (apply css style-parts)]
+  (let [css-fn (apply css style-parts)]
     (fn [props & children]
-      (let [class-name (str (get props :class "") " " (class-fn props))
+      (let [class-name (cx-merge (str (css-fn props) " " (get props :class "")))
             new-props  (assoc props :class class-name)
             filt-props (if (keyword? c)
                          (filter-props new-props)
