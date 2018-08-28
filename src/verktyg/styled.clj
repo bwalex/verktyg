@@ -15,7 +15,7 @@
           :reagent-render
           (fn [props# & children#]
             (let [css-fn# (apply verktyg.styled/css ~parts#)
-                  cls-names# (str (get props# :class "") " " (css-fn# props#))
+                  cls-names# (str (css-fn# props#) " " (get props# :class ""))
                   new-props# (merge props# {:class cls-names#})
                   children# (if (empty? children#)
                               (get props# :children [])
