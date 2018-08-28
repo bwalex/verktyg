@@ -41,6 +41,7 @@
   (into
     [:div {:style (:style props)
            :class (:class props)
+           :ref (:inner-ref props)
            :on-copy stop-ev-prop
            :on-cut stop-ev-prop
            :on-paste stop-ev-prop
