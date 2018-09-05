@@ -138,21 +138,25 @@
   `fa`, return a `reagent.ratom/reaction` that runs the validators specified
   under the `vals` keys of each fields' spec and return a map of field
   errors."
-  [fs fa]
-  (reaction (second (v/validate-kv @fa
-                                   (reduce-kv (fn [r k v] (assoc r k (get v :vals [])))
-                                              {}
-                                              fs)))))
+  [fs fa val-fn]
+  (let [validators (reduce-kv (fn [r k v] (assoc r k (get v :vals []))) {} fs)]
+    (reaction
+      (let [x @fa
+            val-errs (when val-fn (val-fn x))
+            vkv-errs (second (v/validate-kv x validators))]
+        (merge val-errs vkv-errs)))))
 
 (defn build-form
-  [field-specs props]
-  (let [initv (init-form-state field-specs props)
-        fields (r/atom initv)
-        handlers (make-handlers field-specs fields)
-        errors (make-validation-reaction field-specs fields)
-        show-errors (r/atom false)]
-    {:fields-initv initv
-     :fields fields
-     :handlers handlers
-     :errors errors
-     :show-errors show-errors}))
+  ([field-specs props] (build-form field-specs props {}))
+  ([field-specs props opts]
+   (let [{:keys [val-fn]} opts
+         initv (init-form-state field-specs props)
+         fields (r/atom initv)
+         handlers (make-handlers field-specs fields)
+         errors (make-validation-reaction field-specs fields val-fn)
+         show-errors (r/atom false)]
+     {:fields-initv initv
+      :fields fields
+      :handlers handlers
+      :errors errors
+      :show-errors show-errors})))
